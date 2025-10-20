@@ -5,11 +5,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.api.WarehouseApi;
 import ru.yandex.practicum.dto.cart.ShoppingCartDto;
-import ru.yandex.practicum.dto.warehouse.AddProductToWarehouseRequest;
-import ru.yandex.practicum.dto.warehouse.AddressDto;
-import ru.yandex.practicum.dto.warehouse.BookedProductsDto;
-import ru.yandex.practicum.dto.warehouse.NewProductInWarehouseRequest;
+import ru.yandex.practicum.dto.warehouse.*;
 import ru.yandex.practicum.service.WarehouseService;
+
+import java.util.Map;
 
 @Validated
 @RestController
@@ -40,6 +39,37 @@ public class WarehouseController implements WarehouseApi {
     @Override
     public AddressDto getAddress() {
         return warehouseService.getAddress();
+    }
+
+    // Передать товары в доставку.
+    @Override
+    public String sendToDelivery(ShippedToDeliveryRequest shippedToDeliveryRequest) {
+        return warehouseService.sendToDelivery(shippedToDeliveryRequest);
+    }
+
+    // Принять возврат товаров на склад.
+    @Override
+    public String returnProducts(Map<String, Long> products) {
+        return warehouseService.returnProducts(products);
+    }
+
+    // Собрать товары к заказу для подготовки к отправке.
+    @Override
+    public BookedProductsDto assemblyProductsForOrder(AssemblyProductsForOrderRequest assemblyProductsForOrderRequest) {
+        return warehouseService.assemblyProductsForOrder(assemblyProductsForOrderRequest);
+    }
+
+    // Откатить сборку товаров
+    @Override
+    public String rollbackBooking(String orderId) {
+        orderId = orderId.replaceAll("\"", "");       // remove quotes
+        return warehouseService.rollbackBooking(orderId);
+    }
+
+    @Override
+    public String writeOffBookedProducts(String orderId) {
+        orderId = orderId.replaceAll("\"", "");       // remove quotes
+        return warehouseService.writeOffBookedProducts(orderId);
     }
 
 }

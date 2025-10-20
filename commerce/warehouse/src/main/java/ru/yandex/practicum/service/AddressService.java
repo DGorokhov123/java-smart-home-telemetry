@@ -17,7 +17,7 @@ public class AddressService {
         AddressDto addressDto1 = new AddressDto();
         addressDto1.setCountry("Russia");
         addressDto1.setCity("Moscow");
-        addressDto1.setStreet("ul. Stroiteley");
+        addressDto1.setStreet("Stroiteley");
         addressDto1.setHouse("25");
         addressDto1.setFlat("12");
         addresses.add(addressDto1);

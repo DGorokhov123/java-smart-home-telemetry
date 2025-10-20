@@ -69,7 +69,7 @@ public class WarehouseService {
     @Transactional(readOnly = false)
     public String sendToDelivery(ShippedToDeliveryRequest request) {
         Booking booking = bookingRepository.findByOrderId(request.getOrderId()).orElseThrow(
-                () -> new NotFoundException("Not found active booking for order " + request.getOrderId())
+                () -> new NotFoundBookingException("Not found active booking for order " + request.getOrderId())
         );
         booking.setDeliveryId(request.getDeliveryId());
         booking.setBookingState(BookingState.ON_DELIVERY);
@@ -141,7 +141,7 @@ public class WarehouseService {
     @Transactional(readOnly = false)
     public String writeOffBookedProducts(String orderId) {
         Booking booking = bookingRepository.findByOrderId(orderId).orElseThrow(
-                () -> new NotFoundException("Not found booking for order " + orderId)
+                () -> new NotFoundBookingException("Not found booking for order " + orderId)
         );
         booking.setBookingState(BookingState.COMPLETED);
         bookingRepository.save(booking);

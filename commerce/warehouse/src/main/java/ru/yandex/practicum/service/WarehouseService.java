@@ -10,7 +10,10 @@ import ru.yandex.practicum.dal.WarehouseProduct;
 import ru.yandex.practicum.dal.WarehouseProductRepository;
 import ru.yandex.practicum.dto.cart.ShoppingCartDto;
 import ru.yandex.practicum.dto.warehouse.*;
-import ru.yandex.practicum.exception.warehouse.*;
+import ru.yandex.practicum.exception.warehouse.NoSpecifiedProductInWarehouseException;
+import ru.yandex.practicum.exception.warehouse.NotFoundBookingException;
+import ru.yandex.practicum.exception.warehouse.ProductInShoppingCartLowQuantityInWarehouseException;
+import ru.yandex.practicum.exception.warehouse.SpecifiedProductAlreadyInWarehouseException;
 import ru.yandex.practicum.logging.Logging;
 
 import java.math.BigDecimal;

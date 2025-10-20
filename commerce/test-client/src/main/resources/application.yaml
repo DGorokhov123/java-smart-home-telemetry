@@ -1,4 +1,3 @@
-
 logging:
   level:
     ru.yandex.practicum.client: DEBUG

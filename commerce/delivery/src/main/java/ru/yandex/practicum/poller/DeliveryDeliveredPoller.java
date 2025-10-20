@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
 import ru.yandex.practicum.client.OrderClient;
-import ru.yandex.practicum.client.WarehouseClient;
 import ru.yandex.practicum.dal.Delivery;
 import ru.yandex.practicum.dal.DeliveryRepository;
 import ru.yandex.practicum.dto.delivery.DeliveryState;
-import ru.yandex.practicum.dto.warehouse.ShippedToDeliveryRequest;
 
 import java.time.Duration;
 import java.time.Instant;

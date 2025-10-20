@@ -11,8 +11,6 @@ import ru.yandex.practicum.dto.store.QuantityState;
 import ru.yandex.practicum.service.ProductService;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

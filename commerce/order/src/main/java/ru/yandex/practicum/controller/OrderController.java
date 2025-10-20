@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.api.OrderApi;
 import ru.yandex.practicum.dto.order.CreateNewOrderRequest;
 import ru.yandex.practicum.dto.order.OrderDto;
-import ru.yandex.practicum.dto.order.ProductReturnRequest;
 import ru.yandex.practicum.service.OrderService;
 
 import java.util.List;

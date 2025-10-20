@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.dto.order.CreateNewOrderRequest;
 import ru.yandex.practicum.dto.order.OrderDto;
-import ru.yandex.practicum.dto.order.ProductReturnRequest;
 import ru.yandex.practicum.validation.ValidUsername;
 
 import java.util.List;

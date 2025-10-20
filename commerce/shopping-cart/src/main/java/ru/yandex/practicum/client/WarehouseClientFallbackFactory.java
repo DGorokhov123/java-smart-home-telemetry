@@ -7,12 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.dto.cart.ShoppingCartDto;
-import ru.yandex.practicum.dto.warehouse.AddProductToWarehouseRequest;
-import ru.yandex.practicum.dto.warehouse.AddressDto;
-import ru.yandex.practicum.dto.warehouse.BookedProductsDto;
-import ru.yandex.practicum.dto.warehouse.NewProductInWarehouseRequest;
+import ru.yandex.practicum.dto.warehouse.*;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 @Slf4j
@@ -58,6 +56,31 @@ public class WarehouseClientFallbackFactory implements FallbackFactory<Warehouse
             @Override
             public AddressDto getAddress() {
                 throw new UnsupportedOperationException("Method getAddress() is not supported");
+            }
+
+            @Override
+            public String sendToDelivery(ShippedToDeliveryRequest shippedToDeliveryRequest) {
+                throw new UnsupportedOperationException("Method sendToDelivery() is not supported");
+            }
+
+            @Override
+            public String returnProducts(Map<String, Long> products) {
+                throw new UnsupportedOperationException("Method returnProducts() is not supported");
+            }
+
+            @Override
+            public BookedProductsDto assemblyProductsForOrder(AssemblyProductsForOrderRequest assemblyProductsForOrderRequest) {
+                throw new UnsupportedOperationException("Method assemblyProductsForOrder() is not supported");
+            }
+
+            @Override
+            public String rollbackBooking(String orderId) {
+                throw new UnsupportedOperationException("Method assemblyProductsForOrder() is not supported");
+            }
+
+            @Override
+            public String writeOffBookedProducts(String orderId) {
+                throw new UnsupportedOperationException("Method assemblyProductsForOrder() is not supported");
             }
 
         };

@@ -10,6 +10,12 @@ import ru.yandex.practicum.dto.store.ProductDto;
 import ru.yandex.practicum.dto.store.QuantityState;
 import ru.yandex.practicum.service.ProductService;
 
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -46,6 +52,12 @@ public class ShoppingStoreController implements ShoppingStoreApi {
     @Override
     public ProductDto getById(String productId) {
         return productService.getById(productId);
+    }
+
+    // Получить цены по списку товаров из БД
+    @Override
+    public Map<String, BigDecimal> getPricesByIds(Set<String> productIds) {
+        return productService.getPricesByIds(productIds);
     }
 
     // Получение списка товаров по типу в пагинированном виде

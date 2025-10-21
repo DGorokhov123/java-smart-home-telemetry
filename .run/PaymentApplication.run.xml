@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PaymentApplication" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+  <configuration default="false" name="PaymentApplication" type="Application" factoryName="Application" singleton="true" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="ru.yandex.practicum.PaymentApplication" />
     <module name="payment" />
     <extension name="coverage">

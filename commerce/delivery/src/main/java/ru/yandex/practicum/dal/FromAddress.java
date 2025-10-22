@@ -47,23 +47,23 @@ public class FromAddress {
 
     public static FromAddress newEntityFromDto(AddressDto dto) {
         FromAddress address = new FromAddress();
-        address.setCountry(dto.getCountry());
-        address.setCity(dto.getCity());
-        address.setStreet(dto.getStreet());
-        address.setHouse(dto.getHouse());
-        address.setFlat(dto.getFlat());
+        address.setCountry(dto.country());
+        address.setCity(dto.city());
+        address.setStreet(dto.street());
+        address.setHouse(dto.house());
+        address.setFlat(dto.flat());
         address.setPriceMultiplicator(BigDecimal.ONE);
         return address;
     }
 
     public AddressDto toDto() {
-        AddressDto addressDto = new AddressDto();
-        addressDto.setCountry(country);
-        addressDto.setCity(city);
-        addressDto.setStreet(street);
-        addressDto.setHouse(house);
-        addressDto.setFlat(flat);
-        return addressDto;
+        return AddressDto.builder()
+                .country(country)
+                .city(city)
+                .street(street)
+                .house(house)
+                .flat(flat)
+                .build();
     }
 
 }

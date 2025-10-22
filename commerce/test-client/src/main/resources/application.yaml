@@ -2,7 +2,7 @@ logging:
   level:
     ru.yandex.practicum.client: DEBUG
     ru.yandex.practicum.logging: DEBUG
-    feign: DEBUG
+    feign: INFO
 
 info:
   app:

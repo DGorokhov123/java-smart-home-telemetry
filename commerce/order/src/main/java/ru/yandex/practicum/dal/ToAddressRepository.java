@@ -15,11 +15,11 @@ public interface ToAddressRepository extends JpaRepository<ToAddress, Long> {
 
     default ToAddress findByAddressDto(AddressDto dto) {
         return findByCountryAndCityAndStreetAndHouseAndFlat(
-                dto.getCountry(),
-                dto.getCity(),
-                dto.getStreet(),
-                dto.getHouse(),
-                dto.getFlat()
+                dto.country(),
+                dto.city(),
+                dto.street(),
+                dto.house(),
+                dto.flat()
         );
     }
 

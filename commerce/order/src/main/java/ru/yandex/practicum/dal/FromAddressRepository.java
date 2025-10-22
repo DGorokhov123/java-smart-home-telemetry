@@ -1,6 +1,7 @@
 package ru.yandex.practicum.dal;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import ru.yandex.practicum.dto.warehouse.AddressDto;
 
 public interface FromAddressRepository extends JpaRepository<FromAddress, Long> {
 
@@ -11,5 +12,15 @@ public interface FromAddressRepository extends JpaRepository<FromAddress, Long> 
             String house,
             String flat
     );
+
+    default FromAddress findByAddressDto(AddressDto dto) {
+        return findByCountryAndCityAndStreetAndHouseAndFlat(
+                dto.getCountry(),
+                dto.getCity(),
+                dto.getStreet(),
+                dto.getHouse(),
+                dto.getFlat()
+        );
+    }
 
 }

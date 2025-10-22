@@ -46,23 +46,11 @@ public class OrderStateNewPoller extends AbstractPoller<Order> {
         order.setFragile(bookedProductsDto.getFragile());
 
         transactionTemplate.execute(status -> {
-            FromAddress fromAddress = fromAddressRepository.findByCountryAndCityAndStreetAndHouseAndFlat(
-                    addressDto.getCountry(),
-                    addressDto.getCity(),
-                    addressDto.getStreet(),
-                    addressDto.getHouse(),
-                    addressDto.getFlat()
-            );
+            FromAddress fromAddress = fromAddressRepository.findByAddressDto(addressDto);
             if (fromAddress == null) {
-                fromAddress = new FromAddress();
-                fromAddress.setCountry(addressDto.getCountry());
-                fromAddress.setCity(addressDto.getCity());
-                fromAddress.setStreet(addressDto.getStreet());
-                fromAddress.setHouse(addressDto.getHouse());
-                fromAddress.setFlat(addressDto.getFlat());
+                fromAddress = FromAddress.newEntityFromDto(addressDto);
                 fromAddressRepository.save(fromAddress);
             }
-
             order.setFromAddress(fromAddress);
             order.setState(OrderState.ASSEMBLED);
             order.setModifiedAt(Instant.now());

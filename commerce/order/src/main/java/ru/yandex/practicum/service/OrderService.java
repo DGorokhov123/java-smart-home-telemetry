@@ -58,20 +58,9 @@ public class OrderService {
             Optional<Order> optionalOrder = orderRepository.findByShoppingCartId(request.getShoppingCart().getShoppingCartId());
             if (optionalOrder.isPresent()) return optionalOrder.get().toDto();       // idempotence
 
-            ToAddress toAddress = toAddressRepository.findByCountryAndCityAndStreetAndHouseAndFlat(
-                    request.getDeliveryAddress().getCountry(),
-                    request.getDeliveryAddress().getCity(),
-                    request.getDeliveryAddress().getStreet(),
-                    request.getDeliveryAddress().getHouse(),
-                    request.getDeliveryAddress().getFlat()
-            );
+            ToAddress toAddress = toAddressRepository.findByAddressDto(request.getDeliveryAddress());
             if (toAddress == null) {
-                toAddress = new ToAddress();
-                toAddress.setCountry(request.getDeliveryAddress().getCountry());
-                toAddress.setCity(request.getDeliveryAddress().getCity());
-                toAddress.setStreet(request.getDeliveryAddress().getStreet());
-                toAddress.setHouse(request.getDeliveryAddress().getHouse());
-                toAddress.setFlat(request.getDeliveryAddress().getFlat());
+                toAddress = ToAddress.newEntityFromDto(request.getDeliveryAddress());
                 toAddressRepository.save(toAddress);
             }
 

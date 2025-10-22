@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import ru.yandex.practicum.dto.warehouse.AddressDto;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -39,6 +41,16 @@ public class FromAddress {
     @Version
     @Column(name = "version", nullable = false)
     private Long version;
+
+    public static FromAddress newEntityFromDto(AddressDto dto) {
+        FromAddress address = new FromAddress();
+        address.setCountry(dto.getCountry());
+        address.setCity(dto.getCity());
+        address.setStreet(dto.getStreet());
+        address.setHouse(dto.getHouse());
+        address.setFlat(dto.getFlat());
+        return address;
+    }
 
     public AddressDto toDto() {
         AddressDto addressDto = new AddressDto();

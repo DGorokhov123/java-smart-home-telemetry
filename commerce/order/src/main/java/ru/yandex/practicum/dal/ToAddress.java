@@ -40,6 +40,16 @@ public class ToAddress {
     @Column(name = "version", nullable = false)
     private Long version;
 
+    public static ToAddress newEntityFromDto(AddressDto dto) {
+        ToAddress address = new ToAddress();
+        address.setCountry(dto.getCountry());
+        address.setCity(dto.getCity());
+        address.setStreet(dto.getStreet());
+        address.setHouse(dto.getHouse());
+        address.setFlat(dto.getFlat());
+        return address;
+    }
+
     public AddressDto toDto() {
         AddressDto addressDto = new AddressDto();
         addressDto.setCountry(country);

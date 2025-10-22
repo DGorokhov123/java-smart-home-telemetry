@@ -51,39 +51,17 @@ public class DeliveryService {
         Optional<Delivery> optionalDelivery = deliveryRepository.findByOrderId(deliveryDto.getOrderId());
         if (optionalDelivery.isPresent()) return optionalDelivery.get().toDto();    // idempotency
 
-        FromAddress fromAddress = fromAddressRepository.findByCountryAndCityAndStreetAndHouseAndFlat(
-                deliveryDto.getFromAddress().getCountry(),
-                deliveryDto.getFromAddress().getCity(),
-                deliveryDto.getFromAddress().getStreet(),
-                deliveryDto.getFromAddress().getHouse(),
-                deliveryDto.getFromAddress().getFlat()
-        );
+        FromAddress fromAddress = fromAddressRepository.findByAddressDto(deliveryDto.getFromAddress());
         if (fromAddress == null) {
-            fromAddress = new FromAddress();
-            fromAddress.setCountry(deliveryDto.getFromAddress().getCountry());
-            fromAddress.setCity(deliveryDto.getFromAddress().getCity());
-            fromAddress.setStreet(deliveryDto.getFromAddress().getStreet());
-            fromAddress.setHouse(deliveryDto.getFromAddress().getHouse());
-            fromAddress.setFlat(deliveryDto.getFromAddress().getFlat());
-            fromAddress.setPriceMultiplicator(BigDecimal.ONE);
+            fromAddress = FromAddress.newEntityFromDto(deliveryDto.getFromAddress());
             fromAddressRepository.save(fromAddress);
         }
-        ToAddress toAddress = toAddressRepository.findByCountryAndCityAndStreetAndHouseAndFlat(
-                deliveryDto.getToAddress().getCountry(),
-                deliveryDto.getToAddress().getCity(),
-                deliveryDto.getToAddress().getStreet(),
-                deliveryDto.getToAddress().getHouse(),
-                deliveryDto.getToAddress().getFlat()
-        );
+        ToAddress toAddress = toAddressRepository.findByAddressDto(deliveryDto.getToAddress());
         if (toAddress == null) {
-            toAddress = new ToAddress();
-            toAddress.setCountry(deliveryDto.getToAddress().getCountry());
-            toAddress.setCity(deliveryDto.getToAddress().getCity());
-            toAddress.setStreet(deliveryDto.getToAddress().getStreet());
-            toAddress.setHouse(deliveryDto.getToAddress().getHouse());
-            toAddress.setFlat(deliveryDto.getToAddress().getFlat());
+            toAddress = ToAddress.newEntityFromDto(deliveryDto.getToAddress());
             toAddressRepository.save(toAddress);
         }
+
         Delivery delivery = new Delivery();
         delivery.setFromAddress(fromAddress);
         delivery.setToAddress(toAddress);

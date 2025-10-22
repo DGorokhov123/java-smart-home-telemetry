@@ -45,6 +45,17 @@ public class FromAddress {
     @Column(name = "version", nullable = false)
     private Long version;
 
+    public static FromAddress newEntityFromDto(AddressDto dto) {
+        FromAddress address = new FromAddress();
+        address.setCountry(dto.getCountry());
+        address.setCity(dto.getCity());
+        address.setStreet(dto.getStreet());
+        address.setHouse(dto.getHouse());
+        address.setFlat(dto.getFlat());
+        address.setPriceMultiplicator(BigDecimal.ONE);
+        return address;
+    }
+
     public AddressDto toDto() {
         AddressDto addressDto = new AddressDto();
         addressDto.setCountry(country);

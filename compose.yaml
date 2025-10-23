@@ -75,6 +75,21 @@ services:
       - eureka.instance.hostname=config-server
       - server.port=8181
 
+  gateway-server:
+    build: infra/gateway
+    image: gateway-server
+    container_name: gateway-server
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-server
+      - config-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
+      - eureka.instance.hostname=gateway-server
+      - server.port=8080
+
   shopping-store:
     build: commerce/shopping-store
     image: shopping-store
@@ -85,6 +100,7 @@ services:
     depends_on:
       - discovery-server
       - config-server
+      - db
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
       - eureka.instance.hostname=shopping-store
@@ -101,6 +117,8 @@ services:
     depends_on:
       - discovery-server
       - config-server
+      - db
+      - shopping-store
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
       - eureka.instance.hostname=warehouse
@@ -117,8 +135,68 @@ services:
     depends_on:
       - discovery-server
       - config-server
+      - db
+      - shopping-store
+      - warehouse
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
       - eureka.instance.hostname=shopping-cart
       - server.port=8187
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shtech?currentSchema=cart
+
+  delivery:
+    build: commerce/delivery
+    image: delivery
+    container_name: delivery
+    restart: on-failure
+    ports:
+      - "8188:8188"
+    depends_on:
+      - discovery-server
+      - config-server
+      - db
+      - shopping-store
+      - warehouse
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
+      - eureka.instance.hostname=delivery
+      - server.port=8188
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shtech?currentSchema=delivery
+
+  order:
+    build: commerce/order
+    image: order
+    container_name: order
+    restart: on-failure
+    ports:
+      - "8189:8189"
+    depends_on:
+      - discovery-server
+      - config-server
+      - db
+      - shopping-store
+      - warehouse
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
+      - eureka.instance.hostname=order
+      - server.port=8189
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shtech?currentSchema=orders
+
+  payment:
+    build: commerce/payment
+    image: payment
+    container_name: payment
+    restart: on-failure
+    ports:
+      - "8190:8190"
+    depends_on:
+      - discovery-server
+      - config-server
+      - db
+      - shopping-store
+      - warehouse
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
+      - eureka.instance.hostname=payment
+      - server.port=8190
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shtech?currentSchema=payment

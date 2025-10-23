@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/cache")
+@RequestMapping("/api/v1/shopping-cart/cache")
 @RequiredArgsConstructor
 public class CacheController {
 

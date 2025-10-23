@@ -1,4 +1,3 @@
-
 management:
   endpoints.web.exposure.include: health,info,metrics,gateway
   endpoint.health.show-details: always
@@ -13,6 +12,7 @@ logging:
 
 server:
   port: 8080
+  shutdown: graceful
 
 spring:
   cloud:
@@ -26,28 +26,39 @@ spring:
               predicates:
                 - Path=/shopping-store/**
               filters:
-                - StripPrefix=1
-                - name: Retry
-                  args:
-                    retries: 2
-                    statuses: NOT_FOUND
-                    methods: GET
-                    backoff:
-                      firstBackoff: 10ms
-                      maxBackoff: 50ms
-                      factor: 2
-                      basedOnPreviousValue: false
+                - PrefixPath=/api/v1
 
             - id: shopping_cart_service
               uri: lb://shopping-cart
               predicates:
                 - Path=/shopping-cart/**
               filters:
-                - StripPrefix=1
+                - PrefixPath=/api/v1
 
             - id: warehouse_service
               uri: lb://warehouse
               predicates:
                 - Path=/warehouse/**
               filters:
-                - StripPrefix=1
+                - PrefixPath=/api/v1
+
+            - id: order_service
+              uri: lb://order
+              predicates:
+                - Path=/order/**
+              filters:
+                - PrefixPath=/api/v1
+
+            - id: payment_service
+              uri: lb://payment
+              predicates:
+                - Path=/payment/**
+              filters:
+                - PrefixPath=/api/v1
+
+            - id: delivery_service
+              uri: lb://delivery
+              predicates:
+                - Path=/delivery/**
+              filters:
+                - PrefixPath=/api/v1

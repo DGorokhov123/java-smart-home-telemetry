@@ -11,10 +11,10 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import ru.yandex.practicum.api.ExceptionResponse;
+import ru.yandex.practicum.exception.NotAuthorizedUserException;
 import ru.yandex.practicum.exception.cart.NoActiveShoppingCartException;
 import ru.yandex.practicum.exception.cart.NoProductsInShoppingCartException;
-import ru.yandex.practicum.exception.NotAuthorizedUserException;
-import ru.yandex.practicum.api.ExceptionResponse;
 import ru.yandex.practicum.exception.warehouse.ProductInShoppingCartLowQuantityInWarehouseException;
 
 @Slf4j
@@ -84,7 +84,6 @@ public class GlobalExceptionHandler {
         ExceptionResponse response = ExceptionResponse.from(e, HttpStatus.UNPROCESSABLE_ENTITY.toString());
         return new ResponseEntity<>(response, HttpStatus.UNPROCESSABLE_ENTITY);
     }
-
 
 
 }

@@ -1,7 +1,7 @@
 package ru.yandex.practicum.service;
 
-import ru.yandex.practicum.dto.cart.ShoppingCartDto;
 import ru.yandex.practicum.dal.ShoppingCart;
+import ru.yandex.practicum.dto.cart.ShoppingCartDto;
 
 public class ShoppingCartMapper {
 

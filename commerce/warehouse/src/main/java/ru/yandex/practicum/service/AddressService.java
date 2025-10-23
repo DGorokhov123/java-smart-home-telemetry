@@ -14,20 +14,22 @@ public class AddressService {
     private final Random random = new Random();
 
     public AddressService() {
-        AddressDto addressDto1 = new AddressDto();
-        addressDto1.setCountry("Russia");
-        addressDto1.setCity("Moscow");
-        addressDto1.setStreet("ul. Stroiteley");
-        addressDto1.setHouse("25");
-        addressDto1.setFlat("12");
+        AddressDto addressDto1 = AddressDto.builder()
+                .country("Russia")
+                .city("Moscow")
+                .street("Stroiteley")
+                .house("25")
+                .flat("12")
+                .build();
         addresses.add(addressDto1);
 
-        AddressDto addressDto2 = new AddressDto();
-        addressDto2.setCountry("USA");
-        addressDto2.setCity("New-York");
-        addressDto2.setStreet("Wall Street");
-        addressDto2.setHouse("1");
-        addressDto2.setFlat("1");
+        AddressDto addressDto2 = AddressDto.builder()
+                .country("USA")
+                .city("New-York")
+                .street("Wall Street")
+                .house("1")
+                .flat("1")
+                .build();
         addresses.add(addressDto2);
     }
 

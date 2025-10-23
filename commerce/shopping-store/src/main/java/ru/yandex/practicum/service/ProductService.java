@@ -17,9 +17,9 @@ import ru.yandex.practicum.dto.store.*;
 import ru.yandex.practicum.exception.store.ProductNotFoundException;
 import ru.yandex.practicum.logging.Logging;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -107,6 +107,17 @@ public class ProductService {
                 () -> new ProductNotFoundException("Product is not found, id = " + productId)
         );
         return ProductMapper.toDto(product);
+    }
+
+    // Получить цены по списку товаров из БД
+    @Logging
+    @Transactional(readOnly = true)
+    public Map<String, BigDecimal> getPricesByIds(Set<String> productIds) {
+        return productRepository.findAllById(productIds).stream()
+                .collect(Collectors.toMap(
+                        Product::getProductId,
+                        Product::getPrice
+                ));
     }
 
     // Получение списка товаров по типу в пагинированном виде

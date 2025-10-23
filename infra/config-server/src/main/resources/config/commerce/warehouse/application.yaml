@@ -1,8 +1,7 @@
-
 logging:
   level:
-    ru.yandex.practicum.service: DEBUG
-    ru.yandex.practicum.logging: DEBUG
+    ru.yandex.practicum.service: INFO
+    ru.yandex.practicum.logging: INFO
 
 info:
   app:
@@ -28,7 +27,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: false
     properties:
       hibernate:

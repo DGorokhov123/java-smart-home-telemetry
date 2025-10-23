@@ -1,9 +1,7 @@
 package ru.yandex.practicum.api;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.dto.store.ProductCategory;
@@ -11,32 +9,35 @@ import ru.yandex.practicum.dto.store.ProductCollectionDto;
 import ru.yandex.practicum.dto.store.ProductDto;
 import ru.yandex.practicum.dto.store.QuantityState;
 
-@RequestMapping("/api/v1/shopping-store")
+import java.math.BigDecimal;
+import java.util.Map;
+import java.util.Set;
+
 public interface ShoppingStoreApi {
 
     // Создание нового товара в ассортименте
-    @PutMapping
+    @PutMapping("/api/v1/shopping-store")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto createProduct(
             @RequestBody @Valid ProductDto productDto
     );
 
     // Обновление товара в ассортименте, например уточнение описания, характеристик и т.д.
-    @PostMapping
+    @PostMapping("/api/v1/shopping-store")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto updateProduct(
             @RequestBody @Valid ProductDto productDto
     );
 
     // Удалить товар из ассортимента магазина. Функция для менеджерского состава.
-    @PostMapping("/removeProductFromStore")
+    @PostMapping("/api/v1/shopping-store/removeProductFromStore")
     @ResponseStatus(HttpStatus.OK)
     public String removeProduct(
             @RequestBody @NotBlank String productId
     );
 
     // Установка статуса по товару. API вызывается со стороны склада.
-    @PostMapping("/quantityState")
+    @PostMapping("/api/v1/shopping-store/quantityState")
     @ResponseStatus(HttpStatus.OK)
     public String setQuantityState(
             @RequestParam(required = true) String productId,
@@ -44,14 +45,21 @@ public interface ShoppingStoreApi {
     );
 
     // Получить сведения по товару из БД.
-    @GetMapping("/{productId}")
+    @GetMapping("/api/v1/shopping-store/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto getById(
             @PathVariable String productId
     );
 
+    // Получить цены по списку товаров из БД
+    @PostMapping("/api/v1/shopping-store/price")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, BigDecimal> getPricesByIds(
+            @RequestBody @NotNull @NotEmpty Set<String> productIds
+    );
+
     // Получение списка товаров по типу в пагинированном виде
-    @GetMapping
+    @GetMapping("/api/v1/shopping-store")
     @ResponseStatus(HttpStatus.OK)
     public ProductCollectionDto getCollection(
             @RequestParam(required = true) ProductCategory category,

@@ -45,7 +45,7 @@
 # Инфраструктурные модули (папка **/infra**)
 
 Используются:
-- String Boot
+- Spring Boot
 - Spring Cloud Eureka server
 - Spring Cloud Config server
 
